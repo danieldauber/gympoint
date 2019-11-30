@@ -14,6 +14,11 @@ import UserStoreValidator from './app/validators/UserStore';
 import StudentStoreValidator from './app/validators/StudentStore';
 import StudentUpdateValidator from './app/validators/StudentUpdate';
 
+import PlanStoreValidator from './app/validators/PlanStore';
+import PlanUpdateValidator from './app/validators/PlanUpdate';
+
+import PlansController from './app/controllers/PlansController';
+
 import SessionStoreValidator from './app/validators/SessionStore';
 
 const routes = new Router();
@@ -41,5 +46,10 @@ routes.post('/files', upload.single('file'), FileController.store);
 routes.get('/students', StudentController.index);
 routes.post('/student', StudentStoreValidator, StudentController.store);
 routes.put('/student/:id', StudentUpdateValidator, StudentController.update);
+
+routes.get('/plans', PlansController.index);
+routes.post('/plans', PlanStoreValidator, PlansController.store);
+routes.put('/plans/:id', PlanUpdateValidator, PlansController.update);
+routes.delete('/plans/:id', PlansController.delete);
 
 export default routes;
