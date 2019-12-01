@@ -19,16 +19,16 @@ import SessionStoreValidator from './app/validators/SessionStore';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-const bruteStore = new BruteRedis({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-});
+// const bruteStore = new BruteRedis({
+//   host: process.env.REDIS_HOST,
+//   port: process.env.REDIS_PORT,
+// });
 
-const bruteForce = new Brute(bruteStore);
+// const bruteForce = new Brute(bruteStore);
 
 routes.post(
   '/sessions',
-  bruteForce.prevent,
+  // bruteForce.prevent,
   SessionStoreValidator,
   SessionController.store
 );
