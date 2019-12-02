@@ -9,6 +9,8 @@ import StudentController from './app/controllers/StudentController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import CheckinController from './app/controllers/CheckinController';
+import HelpOrderController from './app/controllers/HelpOrderController';
+import AnswerController from './app/controllers/AnswerController';
 
 import authMiddleware from './app/middlewares/auth';
 import UserStoreValidator from './app/validators/UserStore';
@@ -24,6 +26,9 @@ import RegistrationController from './app/controllers/RegistrationController';
 import SessionStoreValidator from './app/validators/SessionStore';
 import RegistrationStoreValidator from './app/validators/RegistrationStore';
 import RegistrationUpdateValidator from './app/validators/RegistrationUpdate';
+
+import HelpOrderStoreValidator from './app/validators/HelpOrderStore';
+import HelpOrderUpdateValidator from './app/validators/HelpOrderUpdate';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -41,7 +46,11 @@ routes.post(
   SessionStoreValidator,
   SessionController.store
 );
-
+routes.post(
+  '/students/:id/help-orders',
+  HelpOrderStoreValidator,
+  HelpOrderController.store
+);
 routes.use(authMiddleware);
 
 routes.post('/users', UserStoreValidator, UserController.store);
@@ -71,5 +80,14 @@ routes.delete('/registration/:id', RegistrationController.delete);
 
 routes.get('/students/:id/checkins', CheckinController.index);
 routes.post('/students/:id/checkins', CheckinController.store);
+
+routes.get('/help-orders', HelpOrderController.index);
+routes.get('/students/:id/help-orders', AnswerController.index);
+
+routes.put(
+  '/help-orders/:id/answer',
+  HelpOrderUpdateValidator,
+  HelpOrderController.update
+);
 
 export default routes;
