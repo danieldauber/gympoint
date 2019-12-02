@@ -8,6 +8,7 @@ import UserController from './app/controllers/UserController';
 import StudentController from './app/controllers/StudentController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
+import CheckinController from './app/controllers/CheckinController';
 
 import authMiddleware from './app/middlewares/auth';
 import UserStoreValidator from './app/validators/UserStore';
@@ -27,16 +28,16 @@ import RegistrationUpdateValidator from './app/validators/RegistrationUpdate';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-// const bruteStore = new BruteRedis({
-//   host: process.env.REDIS_HOST,
-//   port: process.env.REDIS_PORT,
-// });
+const bruteStore = new BruteRedis({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+});
 
-// const bruteForce = new Brute(bruteStore);
+const bruteForce = new Brute(bruteStore);
 
 routes.post(
   '/sessions',
-  // bruteForce.prevent,
+  bruteForce.prevent,
   SessionStoreValidator,
   SessionController.store
 );
@@ -67,5 +68,8 @@ routes.put(
   RegistrationController.update
 );
 routes.delete('/registration/:id', RegistrationController.delete);
+
+routes.get('/students/:id/checkins', CheckinController.index);
+routes.post('/students/:id/checkins', CheckinController.store);
 
 export default routes;
