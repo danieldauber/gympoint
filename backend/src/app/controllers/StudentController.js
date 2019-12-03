@@ -1,8 +1,26 @@
+import { Op } from 'sequelize';
 import Student from '../models/Student';
+
+import Cache from '../../lib/Cache';
 
 class StudentController {
   async index(req, res) {
-    const students = await Student.findAll();
+    const { page = 1, name } = req.query;
+    let whereName = {};
+
+    if (name) {
+      whereName = {
+        name: {
+          [Op.like]: `%${name}%`,
+        },
+      };
+    }
+
+    const students = await Student.findAll({
+      where: whereName,
+      limit: 10,
+      offset: (page - 1) * 10,
+    });
 
     return res.json(students);
   }

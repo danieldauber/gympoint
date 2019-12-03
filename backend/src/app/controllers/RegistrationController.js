@@ -9,7 +9,12 @@ import Queue from '../../lib/Queue';
 
 class RegistrationController {
   async index(req, res) {
-    const registrations = await Registration.findAll();
+    const { page = 1 } = req.query;
+
+    const registrations = await Registration.findAll({
+      limit: 10,
+      offset: (page - 1) * 10,
+    });
 
     return res.json(registrations);
   }

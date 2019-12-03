@@ -1,15 +1,18 @@
 import { subDays } from 'date-fns';
-import sequelize, { Op } from 'sequelize';
+import { Op } from 'sequelize';
 import Checkin from '../models/Checkin';
 
 class CheckinController {
   async index(req, res) {
     const { id } = req.params;
+    const { page = 1 } = req.query;
 
     const checkin = await Checkin.findAll({
       where: {
         student_id: id,
       },
+      limit: 10,
+      offset: (page - 1) * 10,
     });
 
     return res.json(checkin);
