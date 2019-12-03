@@ -1,6 +1,11 @@
 import { addMonths, parseISO } from 'date-fns';
 import Registration from '../models/Registration';
+import Student from '../models/Student';
 import Plan from '../models/Plan';
+
+import RegistrationMail from '../jobs/RegistrationMail';
+
+import Queue from '../../lib/Queue';
 
 class RegistrationController {
   async index(req, res) {
@@ -12,9 +17,11 @@ class RegistrationController {
   async store(req, res) {
     const { student_id, plan_id, start_date } = req.body;
 
-    const { duration, total } = await Plan.findByPk(plan_id);
+    const student = await Student.findByPk(student_id);
 
-    const { id, end_date, price } = await Registration.create({
+    const { title, duration, total, price } = await Plan.findByPk(plan_id);
+
+    const { id, end_date } = await Registration.create({
       student_id,
       plan_id,
       start_date,
@@ -22,7 +29,23 @@ class RegistrationController {
       price: total,
     });
 
-    return res.json({ id, student_id, plan_id, start_date, end_date, price });
+    await Queue.add(RegistrationMail.key, {
+      title,
+      duration,
+      end_date,
+      price,
+      student,
+    });
+
+    return res.json({
+      id,
+      student_id,
+      plan_id,
+      start_date,
+      end_date,
+      price,
+      total,
+    });
   }
 
   async update(req, res) {

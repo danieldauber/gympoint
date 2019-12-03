@@ -1,4 +1,8 @@
 import HelpOrder from '../models/HelpOrder';
+import Student from '../models/Student';
+
+import Queue from '../../lib/Queue';
+import AnswerMail from '../jobs/AnswerMail';
 
 class HelpOrderController {
   async index(req, res) {
@@ -35,6 +39,14 @@ class HelpOrderController {
     const { student_id, answer_at } = await helpOrder.update({
       answer,
       answer_at: new Date(),
+    });
+
+    const student = await Student.findByPk(student_id);
+
+    await Queue.add(AnswerMail.key, {
+      question: helpOrder.question,
+      answer,
+      student,
     });
 
     return res.json({
