@@ -16,11 +16,21 @@ class StudentController {
       };
     }
 
+    const cacheKey = `student:${name}:${page}`;
+
+    const cached = await Cache.get(cacheKey);
+
+    if (cached) {
+      return res.json(cached);
+    }
+
     const students = await Student.findAll({
       where: whereName,
       limit: 10,
       offset: (page - 1) * 10,
     });
+
+    await Cache.set(cacheKey, students);
 
     return res.json(students);
   }
@@ -37,6 +47,8 @@ class StudentController {
     const { id, name, email, age, weight, height } = await Student.create(
       req.body
     );
+
+    await Cache.invalidatePrefix(`student`);
 
     return res.json({
       id,

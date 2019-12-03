@@ -4,17 +4,27 @@ import Student from '../models/Student';
 import Plan from '../models/Plan';
 
 import RegistrationMail from '../jobs/RegistrationMail';
-
+import Cache from '../../lib/Cache';
 import Queue from '../../lib/Queue';
 
 class RegistrationController {
   async index(req, res) {
     const { page = 1 } = req.query;
 
+    const cacheKey = `registration:${page}`;
+
+    const cached = await Cache.get(cacheKey);
+
+    if (cached) {
+      return res.json(cached);
+    }
+
     const registrations = await Registration.findAll({
       limit: 10,
       offset: (page - 1) * 10,
     });
+
+    await Cache.set(cacheKey, registrations);
 
     return res.json(registrations);
   }
@@ -41,6 +51,8 @@ class RegistrationController {
       price,
       student,
     });
+
+    await Cache.invalidatePrefix(`registration`);
 
     return res.json({
       id,
