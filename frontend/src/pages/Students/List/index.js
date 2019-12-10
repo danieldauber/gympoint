@@ -79,21 +79,18 @@ export default function StudentsList() {
             </tr>
           </thead>
           <tbody>
-            {students.map(stundent => (
-              <tr key={stundent.id}>
-                <td>{stundent.name}</td>
-                <td>{stundent.email}</td>
-                <td>{stundent.age}</td>
+            {students.map(student => (
+              <tr key={student.id}>
+                <td>{student.name}</td>
+                <td>{student.email}</td>
+                <td>{student.age}</td>
                 <td>
-                  <ButtonEdit
-                    type="button"
-                    onClick={() => handleEdit(stundent)}
-                  >
+                  <ButtonEdit type="button" onClick={() => handleEdit(student)}>
                     editar
                   </ButtonEdit>
                   <ButtonDelete
                     type="button"
-                    onClick={() => handleDelete(stundent.id)}
+                    onClick={() => handleDelete(student.id)}
                   >
                     apagar
                   </ButtonDelete>
