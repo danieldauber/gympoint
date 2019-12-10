@@ -1,30 +1,46 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import logo from '~/assets/logo-header.svg';
 
 import { Container, Content, Profile } from './styles';
 
+import { signOut } from '~/store/modules/auth/actions';
+
 export default function Header() {
   const profile = useSelector(state => state.user.profile);
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    dispatch(signOut());
+  }
+
   return (
     <Container>
       <Content>
         <nav>
           <img src={logo} alt="GoBarber" />
-          <ul>
+          <ul className="nav nav-pills">
             <li>
-              <Link to="/dashboard">ALUNOS</Link>
+              <NavLink activeStyle={{ color: '#000' }} to="/students">
+                ALUNOS
+              </NavLink>
             </li>
             <li>
-              <Link to="/">PLANOS</Link>
+              <NavLink activeStyle={{ color: '#000' }} to="/plans">
+                PLANOS
+              </NavLink>
             </li>
             <li>
-              <Link to="/">MATRÍCULAS</Link>
+              <NavLink activeStyle={{ color: '#000' }} to="/register">
+                MATRÍCULAS
+              </NavLink>
             </li>
             <li>
-              <Link to="/">PEDIDOS DE AUXÍLIO</Link>
+              <NavLink activeStyle={{ color: '#000' }} to="/help">
+                PEDIDOS DE AUXÍLIO
+              </NavLink>
             </li>
           </ul>
         </nav>
@@ -33,7 +49,9 @@ export default function Header() {
           <Profile>
             <div>
               <strong>{profile.name}</strong>
-              <Link to="/logoff">sair do sistema</Link>
+              <button type="button" onClick={handleLogout}>
+                sair do sistema
+              </button>
             </div>
           </Profile>
         </aside>

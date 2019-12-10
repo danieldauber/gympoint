@@ -26,8 +26,9 @@ class StudentController {
 
     const students = await Student.findAll({
       where: whereName,
-      limit: 10,
-      offset: (page - 1) * 10,
+      limit: 20,
+      offset: (page - 1) * 20,
+      order: [['id', 'DESC']],
     });
 
     await Cache.set(cacheKey, students);
@@ -82,6 +83,30 @@ class StudentController {
     const { id, name } = await Student.findByPk(studentId, {
       attributes: ['id', 'name', 'email'],
     });
+
+    await Cache.invalidatePrefix(`student`);
+
+    return res.json({
+      id,
+      name,
+      email,
+    });
+  }
+
+  async delete(req, res) {
+    const studentId = req.params.id;
+
+    const { id, name, email } = await Student.findByPk(studentId, {
+      attributes: ['id', 'name', 'email'],
+    });
+
+    await Student.destroy({
+      where: {
+        id: studentId,
+      },
+    });
+
+    await Cache.invalidatePrefix(`student`);
 
     return res.json({
       id,

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   background: #fff;
@@ -42,6 +41,13 @@ export const Content = styled.div`
   aside {
     display: flex;
     align-items: center;
+
+    button {
+      background: none;
+      border: 0;
+      color: #de3b3b;
+      margin-top: 2px;
+    }
   }
 `;
 

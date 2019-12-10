@@ -20,7 +20,6 @@ export default function auth(state = INICIAL_STATE, action) {
         break;
       }
       case '@auth/SIGN_IN_FAILURE': {
-        console.tron.warn('false');
         draft.loading = false;
         break;
       }
