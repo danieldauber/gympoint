@@ -22,6 +22,18 @@ class RegistrationController {
     const registrations = await Registration.findAll({
       limit: 10,
       offset: (page - 1) * 10,
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['id', 'title'],
+        },
+      ],
     });
 
     await Cache.set(cacheKey, registrations);

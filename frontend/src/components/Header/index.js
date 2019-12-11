@@ -33,7 +33,7 @@ export default function Header() {
               </NavLink>
             </li>
             <li>
-              <NavLink activeStyle={{ color: '#000' }} to="/register">
+              <NavLink activeStyle={{ color: '#000' }} to="/registration">
                 MATRÍCULAS
               </NavLink>
             </li>

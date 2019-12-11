@@ -12,6 +12,13 @@ class HelpOrderController {
       where: {
         answer_at: null,
       },
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name'],
+        },
+      ],
       limit: 10,
       offset: (page - 1) * 10,
     });
