@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { } from './actions';
+import {} from './actions';
 
 export function* createRegistration({ payload }) {
   try {
@@ -17,7 +17,19 @@ export function* createRegistration({ payload }) {
   }
 }
 
+export function editRegistration() {
+  history.push('/registration/update');
+}
+
 export function* updateRegistration({ payload }) {
+  try {
+    yield call(api.post, `registration/${payload.data.id}`, payload.data);
+    toast.success('Matrícula editada com sucesso');
+
+    history.push('/registration');
+  } catch (error) {
+    toast.error('Não foi possível editar a matrícula');
+  }
   // try {
   //   const { name, email, avatar_id, ...rest } = payload.data;
   //   const profile = {
@@ -51,4 +63,5 @@ export default all([
   takeLatest('@registration/UPDATE_REGISTRATION_REQUEST', updateRegistration),
   takeLatest('@registration/DELETE_REGISTRATION_REQUEST', deleteRegistration),
   takeLatest('@registration/CREATE_REGISTRATION_REQUEST', createRegistration),
+  takeLatest('@registration/EDIT_REGISTRATION_REQUEST', editRegistration),
 ]);

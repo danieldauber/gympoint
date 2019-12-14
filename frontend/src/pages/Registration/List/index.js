@@ -15,7 +15,10 @@ import {
 
 import api from '~/services/api';
 
-import { deleteRegistrationRequest } from '~/store/modules/registration/actions';
+import {
+  deleteRegistrationRequest,
+  editRegistrationRequest,
+} from '~/store/modules/registration/actions';
 
 export default function List() {
   const [registrations, setRegistrations] = useState([]);
@@ -60,6 +63,10 @@ export default function List() {
     }
   }
 
+  function handleEdit(registration) {
+    dispatch(editRegistrationRequest(registration));
+  }
+
   return (
     <Container>
       <header>
@@ -96,7 +103,10 @@ export default function List() {
                   <Active size={20} active={registration.active.toString()} />
                 </td>
                 <td>
-                  <ButtonEdit type="button" onClick={() => {}}>
+                  <ButtonEdit
+                    type="button"
+                    onClick={() => handleEdit(registration)}
+                  >
                     editar
                   </ButtonEdit>
                   <ButtonDelete

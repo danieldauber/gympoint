@@ -18,3 +18,10 @@ export function createRegistrationRequest(data) {
     payload: { data },
   };
 }
+
+export function editRegistrationRequest(data) {
+  return {
+    type: '@registration/EDIT_REGISTRATION_REQUEST',
+    payload: { data },
+  };
+}
