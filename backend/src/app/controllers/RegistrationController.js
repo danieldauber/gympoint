@@ -123,6 +123,8 @@ class RegistrationController {
       },
     });
 
+    await Cache.invalidatePrefix(`registration`);
+
     return res.json({
       id,
       student_id,

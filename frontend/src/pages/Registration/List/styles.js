@@ -124,5 +124,5 @@ export const ButtonEdit = styled.button`
 `;
 
 export const Active = styled(MdCheckCircle)`
-  color: ${props => (props.active ? '#42cb59' : '#ddd')};
+  color: ${props => (props.active === 'true' ? '#42cb59' : '#ddd')};
 `;

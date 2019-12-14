@@ -62,6 +62,23 @@ export const FormElement = styled(Form)`
     color: #444;
   }
 
+  .select {
+    div {
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      margin-bottom: 5px;
+
+      select {
+        background: none;
+        border: none;
+        width: 100%;
+        height: 100%;
+        font-size: 14px;
+        color: #444;
+      }
+    }
+  }
+
   input {
     border-radius: 4px;
     border: 1px solid #ccc;
@@ -76,8 +93,11 @@ export const FormElement = styled(Form)`
       background: #f4f4f4;
     }
   }
+  input[type='date'] {
+    padding: 13px;
+  }
 
-  & > div {
+  & > div.input_group {
     display: flex;
     justify-content: space-between;
 

@@ -15,6 +15,8 @@ import {
 
 import api from '~/services/api';
 
+import { deleteRegistrationRequest } from '~/store/modules/registration/actions';
+
 export default function List() {
   const [registrations, setRegistrations] = useState([]);
   const dispatch = useDispatch();
@@ -49,6 +51,15 @@ export default function List() {
     findRegistrations();
   }, []);
 
+  function handleDelete(id) {
+    const res = window.confirm('Tem certeza que deseja deletar?');
+    if (res === true) {
+      dispatch(dispatch(deleteRegistrationRequest(id)));
+      const s = registrations.filter(r => r.id !== id);
+      setRegistrations(s);
+    }
+  }
+
   return (
     <Container>
       <header>
@@ -82,13 +93,16 @@ export default function List() {
                 <td>{registration.finishFormatted}</td>
                 <td>
                   {registration.active}
-                  <Active size={20} active={registration.active} />
+                  <Active size={20} active={registration.active.toString()} />
                 </td>
                 <td>
-                  <ButtonEdit type="button" onClick={() => { }}>
+                  <ButtonEdit type="button" onClick={() => {}}>
                     editar
                   </ButtonEdit>
-                  <ButtonDelete type="button" onClick={() => { }}>
+                  <ButtonDelete
+                    type="button"
+                    onClick={() => handleDelete(registration.id)}
+                  >
                     apagar
                   </ButtonDelete>
                 </td>
