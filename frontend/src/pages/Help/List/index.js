@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdAdd } from 'react-icons/md';
 
@@ -8,11 +8,23 @@ import { Container, TableContainer, ButtonEdit } from './styles';
 import Modal from '../Modal';
 
 import api from '~/services/api';
+import { openModal } from '~/store/modules/help/actions';
 
 export default function List() {
+  const dispatch = useDispatch();
   const [helps, setHelps] = useState([]);
-  const [toggle, setToggle] = useState(false);
+  const toggle = useSelector(state => state.help.toggle);
   const [item, setItem] = useState('');
+
+  useEffect(() => {
+    async function findPlans() {
+      const response = await api.get(`/help-orders`);
+
+      setHelps(response.data);
+    }
+
+    findPlans();
+  }, [toggle]);
 
   useEffect(() => {
     async function findPlans() {
@@ -26,7 +38,7 @@ export default function List() {
 
   function handleModal(help) {
     setItem(help);
-    setToggle(!toggle);
+    dispatch(openModal(!toggle));
   }
 
   // function handleEdit(plan) {
