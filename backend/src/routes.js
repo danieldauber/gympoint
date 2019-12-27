@@ -51,6 +51,9 @@ routes.post(
   HelpOrderStoreValidator,
   HelpOrderController.store
 );
+routes.get('/students/:id/checkins', CheckinController.index);
+routes.post('/students/:id/checkins', CheckinController.store);
+
 routes.use(authMiddleware);
 
 routes.post('/users', UserStoreValidator, UserController.store);
@@ -78,9 +81,6 @@ routes.put(
   RegistrationController.update
 );
 routes.delete('/registration/:id', RegistrationController.delete);
-
-routes.get('/students/:id/checkins', CheckinController.index);
-routes.post('/students/:id/checkins', CheckinController.store);
 
 routes.get('/help-orders', HelpOrderController.index);
 routes.get('/students/:id/help-orders', AnswerController.index);

@@ -12,6 +12,8 @@ class CheckinController {
         student_id: id,
       },
       limit: 10,
+      order: [['id', 'DESC']],
+
       offset: (page - 1) * 10,
     });
 
