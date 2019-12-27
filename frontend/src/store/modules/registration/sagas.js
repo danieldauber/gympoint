@@ -1,4 +1,4 @@
-import { all, takeLatest, call, put } from 'redux-saga/effects';
+import { all, takeLatest, call } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
 import api from '~/services/api';
@@ -22,29 +22,16 @@ export function editRegistration() {
 }
 
 export function* updateRegistration({ payload }) {
+  console.tron.log(payload);
+
   try {
-    yield call(api.post, `registration/${payload.data.id}`, payload.data);
+    yield call(api.put, `registration/${payload.data.id}`, payload.data);
     toast.success('Matrícula editada com sucesso');
 
     history.push('/registration');
   } catch (error) {
     toast.error('Não foi possível editar a matrícula');
   }
-  // try {
-  //   const { name, email, avatar_id, ...rest } = payload.data;
-  //   const profile = {
-  //     name,
-  //     email,
-  //     avatar_id,
-  //     ...(rest.oldPassword ? rest : {}),
-  //   };
-  //   const response = yield call(api.put, 'users', profile);
-  //   toast.success('Perfil atualizado com sucesso');
-  //   yield put(updateProfileSuccess(response.data));
-  // } catch (error) {
-  //   toast.error('Não foi possível atualizar o perfil');
-  //   yield put(updateProfileFailure());
-  // }
 }
 
 export function* deleteRegistration({ payload }) {

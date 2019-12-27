@@ -28,12 +28,23 @@ export const HelpHeader = styled.View`
 `;
 export const CreatedAt = styled.Text`
   color: #666;
+  flex: 0.8;
 `;
 
-export const Question = styled.Text``;
+export const Question = styled.Text`
+  font-size: 14px;
+  line-height: 26px;
+  color: #666;
+`;
+
+export const AnswerHeader = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
 
 export const Answer = styled.Text`
   font-weight: bold;
+  margin-left: 5px;
   color: ${props => (props.answered ? '#42cb59' : '#999')};
 `;
 

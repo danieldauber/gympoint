@@ -38,10 +38,14 @@ function HelpDetail({ isFocused, navigation }) {
           </QuestionHeader>
           <Question>{helpDetail.question}</Question>
         </QuestionItem>
-        <AnswerItem>
-          <AnswerTitle>Resposta</AnswerTitle>
-          <Answer>{helpDetail.answer}</Answer>
-        </AnswerItem>
+        {helpDetail.answer ? (
+          <AnswerItem>
+            <AnswerTitle>Resposta</AnswerTitle>
+            <Answer>{helpDetail.answer}</Answer>
+          </AnswerItem>
+        ) : (
+          <Text />
+        )}
       </Item>
     </Container>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { View, TouchableOpacity } from 'react-native';
+import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
 import { parseISO, formatDistance } from 'date-fns';
@@ -19,6 +19,7 @@ import {
   Question,
   CheckinButton,
   CheckinButtonText,
+  AnswerHeader,
 } from './styles';
 
 function HelpList({ navigation }) {
@@ -56,11 +57,19 @@ function HelpList({ navigation }) {
           renderItem={({ item: help }) => (
             <Item onPress={() => navigation.navigate('HelpDetail', { help })}>
               <HelpHeader>
-                <Answer answered={help.answered}>
-                  {help.answered
-                    ? `${(<Icon name="textsms" size={20} />)} Respondido`
-                    : `${(<Icon name="textsms" size={20} />)} Sem resposta`}
-                </Answer>
+                <AnswerHeader>
+                  {help.answered ? (
+                    <>
+                      <Icon name="check-circle" size={20} color="#42cb59" />
+                      <Answer answered={help.answered}>Respondido</Answer>
+                    </>
+                  ) : (
+                    <>
+                      <Icon name="check-circle" size={20} color="#999" />
+                      <Answer answered={help.answered}> Sem resposta</Answer>
+                    </>
+                  )}
+                </AnswerHeader>
                 <CreatedAt>{help.timeDistance}</CreatedAt>
               </HelpHeader>
 

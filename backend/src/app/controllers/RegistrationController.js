@@ -96,6 +96,8 @@ class RegistrationController {
 
     const { id, end_date, price } = await Registration.findByPk(registrationId);
 
+    await Cache.invalidatePrefix(`registration`);
+
     return res.json({
       id,
       student_id,

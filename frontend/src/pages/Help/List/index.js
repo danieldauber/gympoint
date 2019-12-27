@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { MdAdd } from 'react-icons/md';
 
 import { Container, TableContainer, ButtonEdit } from './styles';
 
@@ -40,11 +38,6 @@ export default function List() {
     setItem(help);
     dispatch(openModal(!toggle));
   }
-
-  // function handleEdit(plan) {
-  //   dispatch(editPlanRequest(plan));
-  //   history.push('/plans/edit');
-  // }
 
   return (
     <Container>

@@ -68,15 +68,13 @@ export function* deleteStudent({ payload }) {
   try {
     const { id } = payload;
 
-    const response = yield call(api.delete, `student/${id}`);
+    yield call(api.delete, `student/${id}`);
 
     toast.success('Estudante removido com sucesso');
 
-    // yield put(deleteStudentSuccess(response.data));
     history.push('/students');
   } catch (error) {
     toast.error(`Não foi possível deletar o estudante`);
-    // yield put(deleteStudentFailure());
   }
 }
 

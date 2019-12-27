@@ -4,7 +4,6 @@ import { Input, Select } from '@rocketseat/unform';
 import { format, parseISO, addMonths } from 'date-fns';
 import * as Yup from 'yup';
 import { MdDone, MdChevronLeft } from 'react-icons/md';
-// import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 
 import { Container, BackButton, SaveButton, FormElement } from './styles';
@@ -25,8 +24,8 @@ export default function Create() {
 
   const schema = Yup.object().shape({
     student: Yup.number().required('O aluno é obrigatório'),
-    plan: Yup.number().required('O plano é obrigatório'),
-    date_start: Yup.date().required('a A data de início é obrigatória'),
+    plan: Yup.string().required('O plano é obrigatório'),
+    date_start: Yup.string().required('A data de início é obrigatória'),
   });
 
   useEffect(() => {
@@ -110,7 +109,7 @@ export default function Create() {
         </aside>
       </header>
 
-      <FormElement id="form" onSubmit={handleSubmit}>
+      <FormElement schema={schema} id="form" onSubmit={handleSubmit}>
         <label htmlFor="name">ALUNO</label>
         <div className="select_student">
           <AsyncSelect

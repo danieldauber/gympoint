@@ -4,7 +4,6 @@ import { Input, Select } from '@rocketseat/unform';
 import { format, parseISO, addMonths } from 'date-fns';
 import * as Yup from 'yup';
 import { MdDone, MdChevronLeft } from 'react-icons/md';
-// import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 
 import { Container, BackButton, SaveButton, FormElement } from './styles';
@@ -28,11 +27,11 @@ export default function Create() {
 
   const registration = useSelector(state => state.registration.registration);
 
-  const schema = Yup.object().shape({
-    student: Yup.number().required('O aluno é obrigatório'),
-    plan: Yup.number().required('O plano é obrigatório'),
-    date_start: Yup.date().required('a A data de início é obrigatória'),
-  });
+  // const schema = Yup.object().shape({
+  //   student: Yup.number().required('O aluno é obrigatório'),
+  //   plan: Yup.string().required('O plano é obrigatório'),
+  //   date_start: Yup.string().required('A data de início é obrigatória'),
+  // });
 
   useEffect(() => {
     const { total, duration } = plan;
@@ -115,7 +114,7 @@ export default function Create() {
   function handleSubmit(formData) {
     const data = {
       id: registration.id,
-      student_id: selectedStudent[0].value,
+      student_id: selectedOption.value,
       plan_id: formData.plan,
       start_date: formData.date_start,
     };
@@ -146,7 +145,6 @@ export default function Create() {
             name="student"
             isSearchable
             width="100%"
-            options={students}
             loadOptions={loadOptions}
           />
         </div>
@@ -156,7 +154,6 @@ export default function Create() {
             <label htmlFor="plan">PLANO</label>
             <div>
               <Select
-                value={selectedPlan}
                 options={plans}
                 name="plan"
                 onChange={e =>

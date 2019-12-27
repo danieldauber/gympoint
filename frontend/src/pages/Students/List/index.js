@@ -15,7 +15,6 @@ export default function StudentsList() {
   const dispatch = useDispatch();
   const [students, setStudents] = useState([]);
   const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
 
   function handleEdit(student) {
     dispatch(editStudentRequest(student));
@@ -39,13 +38,13 @@ export default function StudentsList() {
 
   useEffect(() => {
     async function findStudents() {
-      const response = await api.get(`/students?name=${search}&page=${page}`);
+      const response = await api.get(`/students?name=${search}`);
 
       setStudents(response.data);
     }
 
     findStudents();
-  }, [page, search]);
+  }, [search]);
 
   return (
     <Container>

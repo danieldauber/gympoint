@@ -3,8 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Input } from '@rocketseat/unform';
-import { MdClose } from 'react-icons/md';
-import { Container, FormElement, Close, Submit } from './styles';
+import { Container, FormElement, Submit } from './styles';
 
 import { updateHelpRequest } from '~/store/modules/help/actions';
 
@@ -29,11 +28,6 @@ export default function Modal({ toggle, help }) {
       })
     );
     setDisplay(false);
-  }
-
-  function handleModal() {
-    setDisplay(false);
-    // console.tron.log(event.target);
   }
 
   return (

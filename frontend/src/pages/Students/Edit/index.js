@@ -7,10 +7,7 @@ import { MdDone, MdChevronLeft } from 'react-icons/md';
 import history from '~/services/history';
 
 import { Container, BackButton, SaveButton, FormElement } from './styles';
-import {
-  editStudentRequest,
-  updateStudentRequest,
-} from '~/store/modules/student/actions';
+import { updateStudentRequest } from '~/store/modules/student/actions';
 
 export default function StudentForm() {
   const dispatch = useDispatch();

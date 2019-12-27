@@ -30,7 +30,7 @@ export const Container = styled.div`
       button {
         display: flex;
         align-items: center;
-
+        border: none;
         color: #fff;
         border-radius: 4px;
         font-size: 12px;
