@@ -8,9 +8,10 @@ class AnswerController {
     const helpOrders = await HelpOrder.findAll({
       where: {
         student_id: id,
-        limit: 10,
-        offset: (page - 1) * 10,
       },
+      limit: 10,
+      offset: (page - 1) * 10,
+      order: [['id', 'DESC']],
     });
 
     return res.json(helpOrders);

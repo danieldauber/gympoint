@@ -1,19 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
 
-import api from '~/services/api';
-import Background from '~/components/Background';
+import { Container, Form, FormInput, SubmitButton } from './styles';
 
-import { Container, newHelp } from './styles';
+import { helpRequest } from '~/store/modules/help/actions';
 
-function HelpForm({ isFocused }) {
-  const [appointments, setApppoinments] = useState([]);
+function HelpForm({ isFocused, navigation }) {
+  const [question, setQuestion] = useState('');
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.user);
+  const nav = useSelector(state => state.help.nav);
+
+  function handleSubmit() {
+    const help = {
+      question,
+      user,
+    };
+
+    dispatch(helpRequest(help));
+  }
+
+  useEffect(() => {
+    if (nav) {
+      navigation.navigate('HelpList');
+    }
+  }, [nav, navigation]);
 
   return (
     <Container>
-      <Text>Form</Text>
+      <Form>
+        <FormInput
+          placeholder="Inclua seu pedido de auxílio"
+          returnKeyType="send"
+          onSubmitEditing={handleSubmit}
+          value={question}
+          onChangeText={setQuestion}
+          multiline
+          name="question"
+          numberOfLines={30}
+          textAlignVertical="top"
+        />
+        <SubmitButton onPress={handleSubmit}>Enviar Pedido</SubmitButton>
+      </Form>
     </Container>
   );
 }

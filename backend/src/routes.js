@@ -53,6 +53,7 @@ routes.post(
 );
 routes.get('/students/:id/checkins', CheckinController.index);
 routes.post('/students/:id/checkins', CheckinController.store);
+routes.get('/students/:id/help-orders', AnswerController.index);
 
 routes.use(authMiddleware);
 
@@ -83,7 +84,6 @@ routes.put(
 routes.delete('/registration/:id', RegistrationController.delete);
 
 routes.get('/help-orders', HelpOrderController.index);
-routes.get('/students/:id/help-orders', AnswerController.index);
 
 routes.put(
   '/help-orders/:id/answer',

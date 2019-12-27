@@ -6,14 +6,43 @@ import { withNavigationFocus } from 'react-navigation';
 import api from '~/services/api';
 import Background from '~/components/Background';
 
-import { Container, Title } from './styles';
+import {
+  Container,
+  Item,
+  Question,
+  QuestionItem,
+  QuestionHeader,
+  CreatedAt,
+  Answer,
+  AnswerItem,
+  AnswerTitle,
+  QuestionTitle,
+} from './styles';
 
-function HelpDetail({ isFocused }) {
-  const [appointments, setApppoinments] = useState([]);
+function HelpDetail({ isFocused, navigation }) {
+  const [helpDetail, setHelpDetail] = useState([]);
+
+  const help = navigation.getParam('help');
+
+  useEffect(() => {
+    setHelpDetail(help);
+  }, [help]);
 
   return (
     <Container>
-      <Text>Detalhe</Text>
+      <Item>
+        <QuestionItem>
+          <QuestionHeader>
+            <QuestionTitle>PERGUNTA</QuestionTitle>
+            <CreatedAt>{helpDetail.timeDistance}</CreatedAt>
+          </QuestionHeader>
+          <Question>{helpDetail.question}</Question>
+        </QuestionItem>
+        <AnswerItem>
+          <AnswerTitle>Resposta</AnswerTitle>
+          <Answer>{helpDetail.answer}</Answer>
+        </AnswerItem>
+      </Item>
     </Container>
   );
 }
