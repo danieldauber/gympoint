@@ -9,20 +9,20 @@ Configure as variaveis ambiente atraves do arquivo .env na raiz do projeto.
 
 Dentro da pasta backend execute o comando `yarn` para instalar as dependências.
 
-## Migrations
+### Migrations
 
 Execute as migrations através do comando
 
 #### `yarn sequelize db:migrate`
 
-## Seeds
+### Seeds
 
 Execute as Seeds através do comando abaixo para popular a base com estudantes,
 planos e usuário administrador.
 
 #### `yarn sequelize db:seed:all`
 
-## Executar o projeto
+### Executar o projeto
 
 Para rodar o projeto, execute o comando
 
